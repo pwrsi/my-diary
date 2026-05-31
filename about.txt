@@ -1,4 +1,13 @@
 ⋆˚✿˖° my diary
 
+my diary is a digital journal app with the following features:
+❀ allows users to: 
+    add and edit entries
+    upload images
+    drag and drop elements
+    pick their mood for today
+❀ uses a calendar view ui
+❀ saves thru json file
+
 started: 05/30/26
 finished: 00/00/26
