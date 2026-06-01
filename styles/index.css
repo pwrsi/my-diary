@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Pixelify Sans";
+  color: #cf7798;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container-image {
+  margin-top: -10px;
+  width: 540px;
+}
+
+.content {
+  position: absolute;
+}
+
+.top {
+  transform: translateY(-120px);
+  font-size: 2.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.date {
+  width: 300px;
+  transform: translateX(-150px);
+  line-height: 35px;
+  font-size: 2.6rem;
+  text-align: center;
+  position: absolute;
+}
+
+.arrows {
+  position: absolute;
+  transform: translateX(-180px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 370px
+}
+
+.arrows button {
+  font-size: 3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Inner Calendar */
+.days {
+  width: 350px;
+
+}
+
+.days .weekdays {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.weekdays p {
+
+}
