@@ -34,8 +34,7 @@
 }
 
 .date {
-  width: 300px;
-  transform: translateX(-150px);
+  width: 300px; 
   line-height: 35px;
   font-size: 2.6rem;
   text-align: center;
@@ -43,8 +42,6 @@
 }
 
 .arrows {
-  position: absolute;
-  transform: translateX(-180px);
   display: flex;
   align-items: center;
   justify-content: space-between;
