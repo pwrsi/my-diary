@@ -3,42 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>𐙚</title>
+  <title>my diary</title>
 
   <link rel="stylesheet" href="styles/structure.css">
-  <link rel="icon" type="image/x-icon" href="images/heart.png">
+  <link rel="icon" type="image/x-icon" href="images/small-ribbon.png">
 </head>
 <body>
   <div class="container">
-    <img class="container-image" src="images/cute-calendar.png" alt="Calendar">
+    <!-- <img class="container-image" src="images/cute-calendar.png" alt="Calendar"> -->
 
     <div class="content">
 
       <div class="top">
-        <div class="date">
-          <p class="month">JUNE</p>
-          <p class="year">2026</p>
+        <div class="month-year-label" id="month-year">
+          <p class="month-label" id="month">MONTH</p>
+          <p class="year-label" id="year">YEAR</p>
         </div>
 
         <div class="arrows">
-          <button class="back">&#60;</button>
-          <button class="next">&#62;</button>
+          <button class="previous-button" id="previous-button">&#60;</button>
+          <button class="next-button" id="next-button">&#62;</button>
         </div>
       </div>
 
-      <div class="days">
+      <div class="days-container">
         <div class="weekdays">
-          <p>Mon</p>
-          <p>Tue</p>
-          <p>Wed</p>
-          <p>Thu</p>
-          <p>Fri</p>
-          <p>Sat</p>
-          <p>Sun</p>
+          <p class="weekday">Mon</p>
+          <p class="weekday">Tue</p>
+          <p class="weekday">Wed</p>
+          <p class="weekday">Thu</p>
+          <p class="weekday">Fri</p>
+          <p class="weekday">Sat</p>
+          <p class="weekday">Sun</p>
+        </div>
+        
+        <div class="days">
+          
         </div>
       </div>
 
     </div>
   </div>
+
+  <div class="month-year-panel hidden" id="month-year-panel">
+    <div class="header">
+      <button class="close-button" id="close-month-year-panel">x</button>
+    </div>
+      
+    <div class="month-year-container">
+      <div class="months-container" id="months-container">
+        
+
+      </div>
+  
+      <div class="years-container" id="years-container">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="note-panel hidden" id="note-panel">
+    <div class="header">
+      <button class="close-button" id="close-note-panel">x</button>
+    </div>
+  </div>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.21/dayjs.min.js"></script> -->
+  <script src="scripts/script.js"></script>
+  
 </body>
 </html>
