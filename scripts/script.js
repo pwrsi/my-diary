@@ -5,6 +5,9 @@ let month = date.getMonth();
 let year = date.getFullYear();
 let lastDay = new Date(year, month + 1, 0).getDate();
 
+const noteInput = document.getElementById('note');
+let id = '';
+
 // arrays ⏔⏔⏔
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -93,6 +96,7 @@ closeMonthYearButton.addEventListener('click', () => {
 // days ⏔⏔⏔
 function displayDays() {
   const date = new Date(year + '-' + (month + 1) + "-01");
+  let daySelected = '';
   lastDay = new Date(year, month + 1, 0).getDate();
 
   let weekdayOfMonth = '';
@@ -109,8 +113,21 @@ function displayDays() {
 
     if (weekday === weekdayOfMonth) {
       for (let i = 1; i <= lastDay; i++) {
+        let dayNumber = i;
+        let monthNumber = month + 1;
+
+        if (i < 10) {
+          dayNumber = '0' + i;
+        }
+
+        if (month < 10) {
+          monthNumber = '0' + monthNumber;
+        }
+
+        daySelected = monthNumber + '/' + dayNumber + '/' + year;
+
         daysHTML += `
-          <div class="day" data-date="${new Date(year + '-' + (month + 1) + "-" + i)}">${i}</div>
+          <div class="day" data-date="${daySelected}">${i}</div>
         `;
       }
     } else {
@@ -125,11 +142,59 @@ function displayDays() {
     .forEach((day) => {
       day.addEventListener('click', () => {
         const dayDate = day.dataset.date;
-  
+        id = dayDate;
+        // show note panel
         console.log(dayDate);
+
+        notePanel.classList.remove('hidden');
+
+        // display date
+        const dateSelected = document.getElementById('date-selected');
+        dateSelected.innerHTML = dayDate;
+
+        // display note
+        let matchingItem = '';
+
+        notes.forEach((note) => {
+          if (note.id === dayDate) {
+            matchingItem = note.input;
+          }
+        });
+
+        if (matchingItem) {
+          noteInput.value = matchingItem;
+        } else {
+          noteInput.value = '';
+        }
       });
     });
 };
+
+// note panel ⏔⏔⏔
+const notePanel = document.getElementById('note-panel');
+const closeNoteButton = document.getElementById('close-note-panel');
+
+closeNoteButton.addEventListener('click', () => {
+  notePanel.classList.add('hidden');
+});
+
+// save button
+const saveButton = document.getElementById('save-button');
+
+saveButton.addEventListener('click', () => {
+  // see if the note entry for that day already exists
+  notes.forEach((note) => {
+    if (note.id === id) {
+      note.input = noteInput.value;
+    } else {
+      notes.push({
+        id: id,
+        input: noteInput.value,
+        mood: 'happy'
+      });
+    }
+  });
+});
 
 // render when the page loads ⏔⏔⏔
 displayMonthYear(months[month]);
