@@ -194,6 +194,8 @@ saveButton.addEventListener('click', () => {
       });
     }
   });
+
+  localStorage.setItem('notes', JSON.stringify(notes));
 });
 
 // render when the page loads ⏔⏔⏔
