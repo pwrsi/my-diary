@@ -5,6 +5,7 @@ let month = date.getMonth();
 let year = date.getFullYear();
 let lastDay = new Date(year, month + 1, 0).getDate();
 
+
 const noteInput = document.getElementById('note');
 let id = '';
 
@@ -19,6 +20,8 @@ function displayMonthYear(monthValue) {
   
   monthLabel.innerHTML = monthValue;
   yearLabel.innerHTML = year;
+
+  
 }
 
 // arrow buttons ⏔⏔⏔
@@ -66,7 +69,7 @@ let monthsHTML = '';
 
 months.forEach((month) => {
   monthsHTML += `
-    <p class="month-name">${month}</p>
+    <button class="month-name" data-month="${month}">${month}</button>
   `;
 });
 
@@ -80,7 +83,7 @@ let yearsHTML = '';
 
 for (let i = 2000; i <= year + 50; i++) {
   yearsHTML += `
-    <p class="year">${i}</p>
+    <button class="year" data-year="${i}">${i}</button>
   `;
 }
 
@@ -95,16 +98,16 @@ closeMonthYearButton.addEventListener('click', () => {
 
 // days ⏔⏔⏔
 function displayDays() {
-  const date = new Date(year + '-' + (month + 1) + "-01");
+  const selectedDate = new Date(year + '-' + (month + 1) + "-01");
   let daySelected = '';
   lastDay = new Date(year, month + 1, 0).getDate();
 
   let weekdayOfMonth = '';
 
-  if (date.getDay() - 1 < 0) {
+  if (selectedDate.getDay() - 1 < 0) {
     weekdayOfMonth = weekdays[6];
   } else {
-    weekdayOfMonth = weekdays[date.getDay() - 1];
+    weekdayOfMonth = weekdays[selectedDate.getDay() - 1];
   }
 
   let daysHTML = '';
@@ -126,9 +129,17 @@ function displayDays() {
 
         daySelected = monthNumber + '/' + dayNumber + '/' + year;
 
-        daysHTML += `
+        console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
+
+        if (i === day && month === date.getMonth()) {
+          daysHTML += `
+          <div class="day current-day" data-date="${daySelected}">${i}</div>
+        `;
+        } else {
+          daysHTML += `
           <div class="day" data-date="${daySelected}">${i}</div>
         `;
+        }
       }
     } else {
       daysHTML += `<div class="empty"></div>`;
