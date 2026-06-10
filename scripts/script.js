@@ -4,8 +4,17 @@ const day = date.getDate();
 let month = date.getMonth();
 let year = date.getFullYear();
 
+const currentYear = date.getFullYear();
+
 const noteInput = document.getElementById('note');
 let id = '';
+
+const monthLabel = document.getElementById('month');
+const yearLabel = document.getElementById('year');
+
+let selectedMonth = 0;
+let selectedYear = 0;
+
 
 // ⏔⏔⏔ arrays ⏔⏔⏔
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -13,17 +22,15 @@ const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 // ⏔⏔⏔ display month and year ⏔⏔⏔
 function displayMonthYear(monthValue, yearValue) {
-  const monthLabel = document.getElementById('month');
-  const yearLabel = document.getElementById('year');
-  
   // Change the innerHTML
-  monthLabel.innerHTML = monthValue;
-  yearLabel.innerHTML = year;
+  monthLabel.innerHTML = months[monthValue];
+  yearLabel.innerHTML = yearValue;
 
   // display selected month & year indicator in the panel
   selectMonthYear(monthValue, yearValue);
 
   displayDays();
+  console.log(year);
 }
 
 // ⏔⏔⏔ arrow buttons ⏔⏔⏔
@@ -32,26 +39,34 @@ const nextButton = document.getElementById('next-button');
 
 prevButton.addEventListener('click', () => {
   // If month goes down to Jan, jump to Dec and go a year down
-  if (month > 0) {
-    month--;
+  if (year <= 2000) {
+    console.log('reached limit');
   } else {
-    month = 11;
-    year = year - 1;
+    if (month > 0) {
+      month--;
+    } else {
+      month = 11;
+      year = year - 1;
+    }
+  
+    displayMonthYear(month, year);
   }
-
-  displayMonthYear(months[month], year);
 });
 
 nextButton.addEventListener('click', () => {
   // If month goes up to December, go back to January and go a year up
-  if (month < 11) {
-    month++;
+  if (year >= currentYear + 50) {
+    console.log('reached limit');
   } else {
-    month = 0;
-    year = year + 1;
-  }
+    if (month < 11) {
+      month++;
+    } else {
+      month = 0;
+      year = year + 1;
+    }
 
-  displayMonthYear(months[month], year);
+    displayMonthYear(month, year);
+  }
 });
 
 // ⏔⏔⏔ month and year panel ⏔⏔⏔
@@ -74,7 +89,7 @@ function selectMonthYear(monthValue, yearValue) {
 
       // get the dataset stored in the element when clicked
       monthButton.addEventListener('click', () => {
-        const monthId = monthButton.dataset.month;
+        const monthId = Number(monthButton.dataset.month);
 
         // for all elements with this class, remove class 'selected'
         document.querySelectorAll('.month-name')
@@ -86,7 +101,9 @@ function selectMonthYear(monthValue, yearValue) {
         document.querySelector(`.month-name-${monthId}`)
           .classList.add('selected');
 
-        console.log(monthId);
+        selectedMonth = monthId;
+
+        // console.log(months[monthId]);
       });
     });
 
@@ -95,7 +112,7 @@ function selectMonthYear(monthValue, yearValue) {
       yearButton.classList.remove('selected');
 
       yearButton.addEventListener('click', () => {
-        const yearId = yearButton.dataset.year;
+        const yearId = Number(yearButton.dataset.year);
 
         document.querySelectorAll('.year')
           .forEach((yearButton) => {
@@ -104,26 +121,25 @@ function selectMonthYear(monthValue, yearValue) {
 
         document.querySelector(`.year-${yearId}`)
           .classList.add('selected');
+
+        selectedYear = yearId;
+
         console.log(yearId);
       });
     });
 
   // automatically selects the current month and year
   // store the month index of the month that matched the monthValue parameter
-  let monthIndex = 0;
-
-  for (let i = 0; i < months.length; i++) {
-    if (months[i] === monthValue) { 
-      monthIndex = i;
-    }
-  }
 
   // modify the element and add the 'selected' class
-  document.querySelector(`.month-name-${monthIndex}`)
+  document.querySelector(`.month-name-${monthValue}`)
     .classList.add('selected');
 
   document.querySelector(`.year-${year}`)
     .classList.add('selected');
+
+  selectedMonth = monthValue;
+  selectedYear = yearValue;
 }
 
 // ⏔⏔⏔ months container ⏔⏔⏔
@@ -146,7 +162,7 @@ const yearsContainer = document.getElementById('years-container');
 
 let yearsHTML = '';
 
-for (let i = 2000; i <= year + 50; i++) {
+for (let i = 2000; i <= currentYear + 50; i++) {
   yearsHTML += `
     <button class="year year-${i}" data-year="${i}">${i}</button>
   `;
@@ -159,12 +175,21 @@ const closeMonthYearButton = document.getElementById('close-month-year-panel');
 
 closeMonthYearButton.addEventListener('click', () => {
   monthYearPanel.classList.add('hidden');
+
+  console.log(selectedMonth + ' ' + selectedYear);
+
+  month = selectedMonth;
+  year = selectedYear;
+
+  displayMonthYear(selectedMonth, selectedYear);
 });
 
 // ⏔⏔⏔ display days ⏔⏔⏔
 function displayDays() {
   // get the first day to identify the weekday
   const firstDay = new Date(year + '-' + (month + 1) + "-01");
+
+  console.log(year + '-' + (month + 1) + "-01");
 
   // get the last day to identify days count in a month
   const lastDay = new Date(year, month + 1, 0).getDate();
@@ -199,7 +224,7 @@ function displayDays() {
 
         daySelected = monthNumber + '/' + dayNumber + '/' + year;
 
-        // console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
+        console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
 
         // put special class for today's date
         if (i === day && month === date.getMonth()) {
@@ -253,6 +278,8 @@ function displayDays() {
       }
     });
   });
+
+  console.log('hellow?');
 };
 
 // ⏔⏔⏔ note panel ⏔⏔⏔
@@ -286,4 +313,4 @@ saveButton.addEventListener('click', () => {
 });
 
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
-displayMonthYear(months[month]);
+displayMonthYear(month, year);
