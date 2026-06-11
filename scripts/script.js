@@ -227,7 +227,7 @@ function displayDays() {
         console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
 
         // put special class for today's date
-        if (i === day && month === date.getMonth()) {
+        if (i === day && month === date.getMonth() && year === date.getFullYear()) {
           daysHTML += `
           <div class="day current-day" data-date="${daySelected}">${i}</div>
         `;
