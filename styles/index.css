@@ -1,73 +1,204 @@
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
   font-family: "Pixelify Sans";
-  color: #cf7798;
+  margin: 0;
+  padding: 0;
+  color: #ae6d84;
+}
+
+body {
+  background-color: #fff1f7;
+}
+
+/* hidden */
+.hidden {
+  display: none;
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
-}
-
-.container-image {
-  margin-top: -10px;
-  width: 540px;
+  background-image: url(/images/cute-pink-calendar-base.png);
+  background-repeat: no-repeat;
+  background-size: 450px;
+  background-position: center;
+  position: relative;
 }
 
 .content {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 225px;
+  left: 50%;
+  right: 50%;
 }
 
 .top {
-  transform: translateY(-120px);
-  font-size: 2.4rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  position: relative;
+  text-align: center;
+  margin-bottom: 38px
 }
 
-.date {
-  width: 300px; 
-  line-height: 35px;
-  font-size: 2.6rem;
-  text-align: center;
+.month-year-label {
+  cursor: pointer;
+  line-height: 25px;
+  font-size: 2rem;
   position: absolute;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .arrows {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 370px
+  gap: 320px;
+  
 }
 
 .arrows button {
-  font-size: 3rem;
+  font-size: 2rem;
   background: none;
   border: none;
-  cursor: pointer;
+  width: 30px
 }
 
-/* Inner Calendar */
+.arrows button, .month-year-label span {
+  transition: 0.05s ease;
+}
+
+.arrows button:hover, .month-year-label:hover span {
+  color: #ff97ba;
+  font-size: 1.8rem;
+}
+
+.days-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: pink; */
+  height: 220px;
+  overflow: hidden;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 1.3rem;
+  gap: 10px 35px;
+}
+
+.weekday {
+  padding: 2px;
+}
+
+/* days */
 .days {
-  width: 350px;
-
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 1.2rem;
+  gap: 10px 25px;
 }
 
-.days .weekdays {
+.day {
+  cursor: pointer;
+  padding: 2px;
+  
+}
+
+.day:hover {
+  background-color: #ff97ba41;
+  border-radius: 50%;
+  /* padding: 5px;
+  border: 2px solid #F2BED1 */
+}
+
+.empty {
+  cursor:unset; 
+}
+
+/* month & year */
+.month-year-panel {
+  background-color: pink;
+  width: 300px;
+  height: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.month-year-container {
+width: 100%;
+height: 100%;
+display: flex;
+gap: 40px;
+overflow: hidden;
+}
+
+.months-container {
+height: 100%;
+}
+
+.years-container {
+height: 100%;
+overflow-y: scroll;
+}
+
+.month-name,
+.year {
+cursor: pointer;
+}
+
+.month-year-panel .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  position: relative;
+  z-index: 100;
 }
 
-.weekdays p {
-
+.selected {
+  background-color: pink;
 }
+
+/* close button */
+/* .close-button {
+  position: absolute;
+  top: 0;
+  l: 0;
+} */
+
+/* note panel */
+.note-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-image: url(/images/note-base.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  width: 30%;
+  height: 90%;
+}
+
+/* current day */
+.current-day {
+  background-color: #F2BED1;
+  color: #ae6d84;
+  border-radius: 50%;
+}
+
+/* selected month & year */

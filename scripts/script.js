@@ -70,7 +70,7 @@ nextButton.addEventListener('click', () => {
 });
 
 // ⏔⏔⏔ month and year panel ⏔⏔⏔
-const monthYearLabel = document.getElementById('month-year');
+const monthYearLabel = document.getElementById('month-year-label');
 
 // show month and year panel
 const monthYearPanel = document.getElementById('month-year-panel');

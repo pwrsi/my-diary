@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>my diary</title>
 
-  <link rel="stylesheet" href="styles/structure.css">
+  <link rel="stylesheet" href="styles/index.css">
   <link rel="icon" type="image/x-icon" href="images/small-ribbon.png">
 </head>
 <body>
@@ -15,10 +15,10 @@
     <div class="content">
 
       <div class="top">
-        <div class="month-year-label" id="month-year">
-          <p class="month-label" id="month">MONTH</p>
-          <p class="year-label" id="year">YEAR</p>
-        </div>
+        <button class="month-year-label" id="month-year-label">
+          <span class="month-label" id="month">MONTH</span>
+          <span class="year-label" id="year">YEAR</span>
+        </button>
 
         <div class="arrows">
           <button class="previous-button" id="previous-button">&#60;</button>
@@ -26,16 +26,17 @@
         </div>
       </div>
 
+      <div class="weekdays">
+        <p class="weekday">M</p>
+        <p class="weekday">T</p>
+        <p class="weekday">W</p>
+        <p class="weekday">T</p>
+        <p class="weekday">F</p>
+        <p class="weekday">S</p>
+        <p class="weekday">S</p>
+      </div>
+
       <div class="days-container">
-        <div class="weekdays">
-          <p class="weekday">Mon</p>
-          <p class="weekday">Tue</p>
-          <p class="weekday">Wed</p>
-          <p class="weekday">Thu</p>
-          <p class="weekday">Fri</p>
-          <p class="weekday">Sat</p>
-          <p class="weekday">Sun</p>
-        </div>
         
         <div class="days">
           
@@ -63,11 +64,10 @@
   </div>
 
   <div class="note-panel hidden" id="note-panel">
-    <div class="header">
-      <button class="close-button" id="close-note-panel">x</button>
-    </div>
 
     <div class="inner-content">
+      <button class="close-button" id="close-note-panel"><</button>
+
       <div class="date" id="date-selected">09/19/26</div>
       <div class="buttons">
         <button class="stickers-button" id="stickers-button">Stickers</button>

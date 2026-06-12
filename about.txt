@@ -11,3 +11,8 @@ my diary is a digital journal app with the following features:
 
 started: 05/30/26
 finished: 00/00/26
+
+links
+Draggable, resizable + stackable panels using Javascript
+https://www.youtube.com/watch?v=NpBZtR1nLwA
+
