@@ -46,8 +46,9 @@ body {
   justify-content: center;
   align-items: center;
   padding: 5px;
-  background-image: url(/images/strawb-polka2.png);
-  background-size: 80px;
+  background-image: url(../images/pink-pattern.png);
+  background-size: 258px;
+  background-position: center;
   border: 3px solid #c1e584;
 }
 
@@ -65,7 +66,7 @@ body {
   align-items: center;
   padding: 20px;
   background-color: #ffdae4;
-  border: 3px solid #ff99b6;
+  border: 3px solid #ffb4c9;
   width: 100%;
 }
 
@@ -105,7 +106,7 @@ body {
   margin: 0 10px;
   background-color: #fff6f8;
   padding: 10px 15px 5px 15px; 
-  border: 3px solid #ff99b6;
+  border: 3px solid #ffb4c9;
 }
 
 .weekdays {
