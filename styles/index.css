@@ -81,6 +81,10 @@ body {
   cursor: pointer;
 }
 
+.arrows button {
+  color: #c1e584;
+}
+
 .top button:hover, .top .month-year-label:hover span {
   transform: scale(0.95);
 }
@@ -119,6 +123,7 @@ body {
 
 .weekday {
   text-align: center;
+  color: #a6ca69;
 }
 
 .days {
@@ -132,12 +137,13 @@ body {
   text-align: center;
   transition: 0.2s ease;
   cursor: pointer;
+  color: #fd88a9;
 }
 
 .current-day {
   background-color: #c1e584;
   border-radius: 50%;
-  color: #859c5d;
+  color: #ffffff;
 }
 
 .day:hover {
