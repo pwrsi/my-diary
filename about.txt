@@ -16,3 +16,4 @@ links
 Draggable, resizable + stackable panels using Javascript
 https://www.youtube.com/watch?v=NpBZtR1nLwA
 
+https://www.youtube.com/watch?v=7PYvx8u_9Sk&t=58s
