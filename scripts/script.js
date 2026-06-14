@@ -150,7 +150,7 @@ let monthsHTML = '';
 
 months.forEach((month, index) => {
   monthsHTML += `
-    <button class="month-name month-name-${index}" data-month="${index}">${month}</button>
+    <button class="month-name month-name-${index} months-years-button" data-month="${index}">${month}</button>
   `;
 });
 
@@ -164,7 +164,7 @@ let yearsHTML = '';
 
 for (let i = 2000; i <= currentYear + 50; i++) {
   yearsHTML += `
-    <button class="year year-${i}" data-year="${i}">${i}</button>
+    <button class="year year-${i} months-years-button" data-year="${i}">${i}</button>
   `;
 }
 
