@@ -30,7 +30,7 @@ function displayMonthYear(monthValue, yearValue) {
   selectMonthYear(monthValue, yearValue);
 
   displayDays();
-  console.log(year);
+  // console.log(year);
 }
 
 // ⏔⏔⏔ arrow buttons ⏔⏔⏔
@@ -124,7 +124,7 @@ function selectMonthYear(monthValue, yearValue) {
 
         selectedYear = yearId;
 
-        console.log(yearId);
+        // console.log(yearId);
       });
     });
 
@@ -176,7 +176,7 @@ const closeMonthYearButton = document.getElementById('close-month-year-panel');
 closeMonthYearButton.addEventListener('click', () => {
   monthYearPanel.classList.add('hidden');
 
-  console.log(selectedMonth + ' ' + selectedYear);
+  // console.log(selectedMonth + ' ' + selectedYear);
 
   month = selectedMonth;
   year = selectedYear;
@@ -189,7 +189,7 @@ function displayDays() {
   // get the first day to identify the weekday
   const firstDay = new Date(year + '-' + (month + 1) + "-01");
 
-  console.log(year + '-' + (month + 1) + "-01");
+  // console.log(year + '-' + (month + 1) + "-01");
 
   // get the last day to identify days count in a month
   const lastDay = new Date(year, month + 1, 0).getDate();
@@ -214,17 +214,20 @@ function displayDays() {
         let dayNumber = i;
         let monthNumber = month + 1;
 
+        console.log("month: " + month);
+        console.log("monthNumber: " + monthNumber);
+
         if (i < 10) {
           dayNumber = '0' + i;
         }
 
-        if (month < 10) {
+        if (monthNumber < 10) {
           monthNumber = '0' + monthNumber;
         }
 
         daySelected = monthNumber + '/' + dayNumber + '/' + year;
 
-        console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
+        // console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
 
         // put special class for today's date
         if (i === day && month === date.getMonth() && year === date.getFullYear()) {
@@ -255,7 +258,7 @@ function displayDays() {
       id = dayDate;
 
       // show note panel
-      console.log(dayDate);
+      // console.log(dayDate);
       notePanel.classList.remove('hidden');
 
       // display date
@@ -278,8 +281,6 @@ function displayDays() {
       }
     });
   });
-
-  console.log('hellow?');
 };
 
 // ⏔⏔⏔ note panel ⏔⏔⏔
