@@ -46,6 +46,7 @@ body {
   background-size: 258px;
   background-position: center;
   border: 3px solid #c1e584;
+  border-radius: 9px;
 }
 
 .content {
@@ -64,6 +65,7 @@ body {
   background-color: #ffdae4;
   border: 3px solid #ffb4c9;
   width: 100%;
+  border-radius: 9px;
 }
 
 .top button, .top span {
@@ -72,12 +74,13 @@ body {
   border: none;
   color: #ffffff;
   text-transform:uppercase;
-  text-shadow: -1px -1px 0 #fd88a9, 1px -1px 0 #fd88a9, -1px 2px 0 #fd88a9, 1px 1px 0 #fd88a9;
+  text-shadow: -1px -1px 0 #ff7ba1, 1px -1px 0 #ff7ba1, -1px 2px 0 #ff7ba1, 1px 1px 0 #ff7ba1;
   transition: 0.3s ease;
   cursor: pointer;
 }
 
 .arrows button {
+  text-shadow: -1px -1px 0 #fd88a9, 1px -1px 0 #fd88a9, -1px 2px 0 #fd88a9, 1px 1px 0 #fd88a9;
   color: #c1e584;
 }
 
@@ -107,6 +110,7 @@ body {
   background-color: #fff6f8;
   padding: 10px 15px 5px 15px; 
   border: 3px solid #ffb4c9;
+  border-radius: 9px;
 }
 
 .weekdays {
@@ -179,6 +183,7 @@ body {
   flex-direction: column;
   align-items: center;
   border: 3px solid #c1e584;
+  border-radius: 9px;
 }
 
 .header {
@@ -201,6 +206,7 @@ body {
   border: 2px solid #a6ca69;
   color: #a6ca69;
   font-size: 1.1rem;
+  border-radius: 4px;
 }
 
 .month-year-container {
@@ -211,6 +217,7 @@ body {
   width: 98%;
   overflow: hidden;
   padding: 10px;
+  border-radius: 9px;
 }
 
 .months-container, .years-container {
@@ -224,6 +231,7 @@ body {
   border: none;
   color: #ff92b1;
   background-color: #ffffff;
+  border-radius: 4px;
 }
 
 .months-container, .years-container {
@@ -232,12 +240,106 @@ body {
   padding-right: 10px;
 }
 
-/* hidden */
-.hidden {
-  display: none;
-}
-
 .selected {
   color: rgb(255, 255, 255);
   background-color: #a6ca69;
+}
+
+/* notes */
+.note-panel .buttons button {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+}
+
+.save-button img {
+  width: 25px;
+}
+
+.moods-button img {
+  width: 28px;
+  margin-right: 5px;
+}
+
+.stickers-button img {
+  width: 27px;
+  margin-right: 4px;
+  padding-bottom: 2px;
+}
+
+.note-panel {
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ffdce54d;
+}
+
+.note-panel .inner-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-image: url(../images/pink-pattern.png);
+  background-size: 258px;
+  background-position: center;
+  border: 3px solid #c1e584;
+  border-radius: 9px;
+  width: 400px;
+  gap: 5px;
+}
+
+.note-panel .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.note-panel .top .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.note-panel .top .right .date {
+  font-size: 1.4rem;
+  color: #ff7ba1
+}
+
+.note-panel .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.note {
+  background-color: #ffdae4;
+  border: 3px solid #ffb4c9;
+  border-radius: 9px;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.note textarea {
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  resize: none;
+  outline: none;
+  
+}
+
+/* hidden */
+.hidden {
+  display: none;
 }
