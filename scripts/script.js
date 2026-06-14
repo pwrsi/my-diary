@@ -39,7 +39,7 @@ const nextButton = document.getElementById('next-button');
 
 prevButton.addEventListener('click', () => {
   // If month goes down to Jan, jump to Dec and go a year down
-  if (year <= 2000) {
+  if (year <= 2000 && month == 0) {
     console.log('reached limit');
   } else {
     if (month > 0) {
@@ -55,7 +55,7 @@ prevButton.addEventListener('click', () => {
 
 nextButton.addEventListener('click', () => {
   // If month goes up to December, go back to January and go a year up
-  if (year >= currentYear + 50) {
+  if (year >= currentYear + 50 && month == 11) {
     console.log('reached limit');
   } else {
     if (month < 11) {
