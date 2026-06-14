@@ -156,7 +156,7 @@ body {
 }
 
 /* month year panel */
-.month-year-panel {
+.panel {
   background-color: #ffdce54d;
   width: 100%;
   height: 100%;
@@ -336,7 +336,59 @@ body {
   padding: 10px;
   resize: none;
   outline: none;
-  
+}
+
+/* Moods */
+.moods-panel {
+  background-color: #ffb4c9;
+  position: absolute;
+  z-index: 100;
+  width: 370px;
+  overflow: hidden;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #c1e584;
+  border-radius: 9px;
+}
+
+.moods-panel .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.moods-panel .header p {
+  color: #ffffff;
+}
+
+.moods-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.moods-container .mood {
+  border: none;
+  background-color: #fff1f5;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.mood img {
+  width: 65px;
+
+}
+
+.moods-container .mood-selected {
+  border: 4px solid #c1e584;
 }
 
 /* hidden */
