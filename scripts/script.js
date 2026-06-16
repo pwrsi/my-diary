@@ -8,6 +8,7 @@ const currentYear = date.getFullYear();
 
 const noteInput = document.getElementById('note');
 let id = '';
+let moodInput = '';
 
 const monthLabel = document.getElementById('month');
 const yearLabel = document.getElementById('year');
@@ -214,9 +215,6 @@ function displayDays() {
         let dayNumber = i;
         let monthNumber = month + 1;
 
-        console.log("month: " + month);
-        console.log("monthNumber: " + monthNumber);
-
         if (i < 10) {
           dayNumber = '0' + i;
         }
@@ -265,17 +263,25 @@ function displayDays() {
       const dateSelected = document.getElementById('date-selected');
       dateSelected.innerHTML = dayDate;
 
-      // display note
+      // display note and mood
       let matchingItem = '';
 
       notes.forEach((note) => {
         if (note.id === dayDate) {
-          matchingItem = note.input;
+          matchingItem = note;
         }
       });
 
+      document.querySelectorAll('.mood')
+        .forEach((moodButton) => {
+          moodButton.classList.remove('mood-selected');
+        });
+
       if (matchingItem) {
-        noteInput.value = matchingItem;
+        noteInput.value = matchingItem.input;
+
+        document.querySelector(`.mood-${matchingItem.mood}`)
+          .classList.add('mood-selected');
       } else {
         noteInput.value = '';
       }
@@ -295,23 +301,87 @@ closeNoteButton.addEventListener('click', () => {
 const saveButton = document.getElementById('save-button');
 
 saveButton.addEventListener('click', () => {
+  
+  let matchingItem = "";
+
   // see if the note entry for that day already exists
   notes.forEach((note) => {
     // if current note id matches the id (got from clicking a day)
     // store in an array
     if (note.id === id) {
-      note.input = noteInput.value;
-    } else {
-      notes.push({
-        id: id,
-        input: noteInput.value,
-        mood: 'happy'
-      });
+      matchingItem = note;
     }
   });
 
+  console.log(matchingItem);
+
+  if (matchingItem) {
+    matchingItem['input'] = noteInput.value;
+    matchingItem['mood'] = moodInput;
+
+    if (!noteInput.value && !moodInput) {
+      notes.forEach((note, i) => {
+        if (note === matchingItem) {
+          notes.splice(i, 1);
+        }
+
+        console.log('removed');
+      });
+    }
+
+  } else if (!matchingItem && noteInput.value || moodInput) {
+    notes.push({
+      id: id,
+      input: noteInput.value,
+      mood: moodInput
+    });
+
+  }
+  
   localStorage.setItem('notes', JSON.stringify(notes));
+  console.log(notes);
 });
+
+// moods panel
+const moodsButton = document.getElementById('moods-button');
+const moodsPanel = document.getElementById('moods-panel')
+const closeMoodsButton = document.getElementById('close-moods-panel');
+
+moodsButton.addEventListener('click', () => {
+  moodsPanel.classList.remove('hidden');
+});
+
+closeMoodsButton.addEventListener('click', () => {
+  moodsPanel.classList.add('hidden');
+});
+
+document.querySelectorAll('.mood')
+  .forEach((moodButton) => {
+    moodInput = '';
+
+    document.querySelectorAll('.mood')
+    .forEach((moodButton) => {
+      moodButton.classList.remove('mood-selected');
+    });
+
+    moodButton.addEventListener('click', () => {
+      document.querySelectorAll('.mood')
+        .forEach((moodButton) => {
+          moodButton.classList.remove('mood-selected');
+        });
+      
+      const moodSelected = moodButton.dataset.mood;
+
+      if (moodInput === moodSelected) {
+        document.querySelector(`.mood-${moodInput}`)
+          .classList.remove('mood-selected');
+          moodInput = '';
+      } else {
+        moodInput = moodSelected;
+        moodButton.classList.add('mood-selected');
+      }
+    });
+  });
 
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
 displayMonthYear(month, year);

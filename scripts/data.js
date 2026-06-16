@@ -1,9 +1,1 @@
-const notes = JSON.parse(localStorage.getItem('notes')) || [{
-  id: '06/19/2026',
-  input: 'hello muning',
-  mood: 'happy'
-}, {
-  id: '06/30/2026',
-  input: 'hello buning',
-  mood: 'sad'
-}];
+const notes = JSON.parse(localStorage.getItem('notes')) || [];

@@ -48,6 +48,7 @@
   <div class="month-year-panel panel hidden" id="month-year-panel">
     <div class="inner-content">
       <div class="header">
+        <p>Select month or year</p>
         <button class="close-button" id="close-month-year-panel">x</button>
       </div>
         
@@ -101,28 +102,28 @@
     </div>
   </div>
 
-  <div class="moods-panel hidden">
+  <div class="moods-panel panel hidden" id="moods-panel">
     <div class="inner-content">
       <div class="header">
         <p>Select your mood</p>
 
-        <button class="close-button">x</button>
+        <button class="close-button" id="close-moods-panel">x</button>
       </div>
 
       <div class="moods-container">
-        <button class="mood mood-selected">
+        <button class="mood mood-happy" data-mood="happy">
           <img src="images/moods/happy-mood.png" alt="Happy">
         </button>
 
-        <button class="mood">
+        <button class="mood mood-neutral" data-mood="neutral">
           <img src="images/moods/neutral-mood.png" alt="Neutral">
         </button>
 
-        <button class="mood">
+        <button class="mood mood-sad" data-mood="sad">
           <img src="images/moods/sad-mood.png" alt="Sad">
         </button>
 
-        <button class="mood">
+        <button class="mood mood-angry" data-mood="angry">
           <img src="images/moods/angry-mood.png" alt="Angry">
         </button>
       </div>
