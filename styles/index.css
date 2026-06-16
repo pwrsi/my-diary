@@ -65,16 +65,16 @@ body {
   background-color: #ffdae4;
   border: 3px solid #ffb4c9;
   width: 100%;
-  border-radius: 9px;
 }
 
 .top button, .top span {
   font-size: 1.6rem;
   background: none;
   border: none;
-  color: #ffffff;
+  color: #fd88a9;
+  font-weight: 800;
   text-transform:uppercase;
-  text-shadow: -1px -1px 0 #ff7ba1, 1px -1px 0 #ff7ba1, -1px 2px 0 #ff7ba1, 1px 1px 0 #ff7ba1;
+  /* text-shadow: -1px -1px 0 #ff7ba1, 1px -1px 0 #ff7ba1, -1px 2px 0 #ff7ba1, 1px 1px 0 #ff7ba1; */
   transition: 0.3s ease;
   cursor: pointer;
 }
@@ -110,7 +110,6 @@ body {
   background-color: #fff6f8;
   padding: 10px 15px 5px 15px; 
   border: 3px solid #ffb4c9;
-  border-radius: 9px;
 }
 
 .weekdays {
@@ -156,29 +155,12 @@ body {
 }
 
 /* month year panel */
-.panel {
-  background-color: #ffdce54d;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
 
 .month-year-panel .inner-content {
   background-color: #ffb4c9;
   position: absolute;
   z-index: 100;
-  width: 260px;
-  height: 280px;
   overflow: hidden;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,10 +170,15 @@ body {
 
 .header {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
   width: 100%;
+  padding: 5px;
+}
+
+.header p {
+  color: #fff;
+  font-size: 1rem;
 }
 
 .close-button {
@@ -199,14 +186,13 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   padding-bottom: 3px;
-  background-color: #fff;
-  border: 2px solid #a6ca69;
-  color: #a6ca69;
-  font-size: 1.1rem;
-  border-radius: 4px;
+  background-color: #ffdae4;
+  border: 2px solid #fd88a9;
+  color: #fd88a9;
+  font-size: 1.2rem;
 }
 
 .month-year-container {
@@ -214,10 +200,10 @@ body {
   justify-content: center;
   gap: 20px;
   background-color: #ffdae4;
-  width: 98%;
+  width: 100%;
+  height: 280px;
   overflow: hidden;
   padding: 10px;
-  border-radius: 9px;
 }
 
 .months-container, .years-container {
@@ -231,13 +217,14 @@ body {
   border: none;
   color: #ff92b1;
   background-color: #ffffff;
-  border-radius: 4px;
 }
 
 .months-container, .years-container {
   height: 100%;
   overflow-y: scroll;
   padding-right: 10px;
+  scrollbar-color: #ff92b1 #ffffff;
+  scrollbar-width: thin;
 }
 
 .selected {
@@ -259,7 +246,7 @@ body {
 
 .moods-button img {
   width: 28px;
-  margin-right: 5px;
+  margin-right: 6px;
 }
 
 .stickers-button img {
@@ -323,7 +310,6 @@ body {
 .note {
   background-color: #ffdae4;
   border: 3px solid #ffb4c9;
-  border-radius: 9px;
   width: 100%;
   height: 400px;
   overflow: hidden;
@@ -336,19 +322,16 @@ body {
   padding: 10px;
   resize: none;
   outline: none;
+  font-size: 1.2rem;
 }
 
 /* Moods */
-.moods-panel {
+
+.moods-panel .inner-content {
   background-color: #ffb4c9;
   position: absolute;
   z-index: 100;
-  width: 370px;
   overflow: hidden;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -366,6 +349,7 @@ body {
 }
 
 .moods-container {
+  background-color: #ffdae4;
   width: 100%;
   display: flex;
   gap: 10px;
@@ -380,15 +364,35 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 6px;
+  cursor: pointer;
+  border: 4px solid transparent;
+  transition: 0.2s ease;
 }
 
 .mood img {
   width: 65px;
-
 }
 
 .moods-container .mood-selected {
   border: 4px solid #c1e584;
+  background-color: #ebffc8;
+}
+
+.moods-container .mood:hover {
+  transform: scale(0.9);
+}
+
+/* general */
+.panel {
+  background-color: #ffdce54d;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
 
 /* hidden */
