@@ -14,7 +14,7 @@
   width: 15%;
   position: absolute;
   z-index: 2;
-  top: -20px;
+  top: -26px;
   left: -20px;
   transform: rotate(30deg);
 }
@@ -23,7 +23,7 @@
   width: 15%;
   position: absolute;
   z-index: 2;
-  bottom: -20px;
+  bottom: -26px;
   right: -20px;
   transform: rotate(30deg);
 }
@@ -72,7 +72,6 @@ body {
   background: none;
   border: none;
   color: #fd88a9;
-  font-weight: 800;
   text-transform:uppercase;
   /* text-shadow: -1px -1px 0 #ff7ba1, 1px -1px 0 #ff7ba1, -1px 2px 0 #ff7ba1, 1px 1px 0 #ff7ba1; */
   transition: 0.3s ease;
@@ -105,10 +104,9 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 80%;
   margin: 0 10px;
   background-color: #fff6f8;
-  padding: 10px 15px 5px 15px; 
+  padding: 18px 15px 18px 15px; 
   border: 3px solid #ffb4c9;
 }
 
@@ -128,6 +126,7 @@ body {
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   gap: 10px 20px;
 }
 
@@ -137,6 +136,13 @@ body {
   transition: 0.2s ease;
   cursor: pointer;
   color: #fd88a9;
+}
+
+.prev-day, .next-day {
+  padding: 6px 5px;
+  text-align: center;
+  transition: 0.2s ease;
+  color: #c1929f99;
 }
 
 .current-day {
