@@ -201,18 +201,16 @@ function displayDays() {
 
   // get weekday
   if (firstDay.getDay() - 1 < 0) {
-    weekdayOfMonth = 6;
+    weekdayOfMonth = weekdays[6];
   } else {
-    weekdayOfMonth = firstDay.getDay() - 1;
+    weekdayOfMonth = weekdays[firstDay.getDay() - 1];
   }
 
   let daysHTML = '';
-  let doneGenerating = false;
-  let occupiedCount = 0;
 
   // generate days
   weekdays.forEach((weekday) => {
-    if (weekday === weekdays[weekdayOfMonth]) {
+    if (weekday === weekdayOfMonth) {
       for (let i = 1; i <= lastDay; i++) {
         let dayNumber = i;
         let monthNumber = month + 1;
@@ -227,50 +225,22 @@ function displayDays() {
 
         daySelected = monthNumber + '/' + dayNumber + '/' + year;
 
-        // console.log(`${i} === ${day} && ${month} === ${date.getMonth()}`);
-
         // put special class for today's date
         if (i === day && month === date.getMonth() && year === date.getFullYear()) {
           daysHTML += `
           <div class="day current-day" data-date="${daySelected}">${i}</div>
         `;
-          occupiedCount++;
         } else {
           daysHTML += `
           <div class="day" data-date="${daySelected}">${i}</div>
         `;
-          occupiedCount++;
         }
-
-        doneGenerating = true;
       }
     } else {
-      let prevDays = weekdayOfMonth; // 2
-      let prevMonth = month - 1; // 6 (7) -> July
-      const prevLastDay = new Date(year, prevMonth + 1, 0).getDate(); // 30
-
-      if (weekday === 'Mon') {
-        for (let i = prevDays; i > 0; i--) {
-          daysHTML += `<div class="day prev-day" data-date="${daySelected}">${(prevLastDay - i) + 1}</div>`;
-          occupiedCount++;
-        }
-      }
-
       // leave blank if first day doesn't have *this* weekday
-      
-      
+      daysHTML += `<div class="empty"></div>`;
     }
   });
-
-  if (doneGenerating) {
-    // const lastWeekdayOfMonth = new Date(year + '-' + (month + 1) + '-' + lastDay);
-    // console.log(lastWeekdayOfMonth.getDay());
-
-    for (let i = 1; i <= 42 - occupiedCount; i++) {
-      daysHTML += `<div class="prev-day">${i}</div>`;
-      
-    }
-  }
 
   document.querySelector('.days')
     .innerHTML = daysHTML;
