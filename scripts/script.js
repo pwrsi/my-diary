@@ -2,9 +2,8 @@
 const date = new Date();
 const day = date.getDate();
 let month = date.getMonth();
-let year = date.getFullYear();
-
 const currentYear = date.getFullYear();
+let year = currentYear;
 
 const noteInput = document.getElementById('note');
 let id = '';
@@ -13,7 +12,8 @@ let moodInput = '';
 const monthLabel = document.getElementById('month');
 const yearLabel = document.getElementById('year');
 
-
+let selectedMonth = 0;
+let selectedYear = 0;
 
 // ⏔⏔⏔ arrays ⏔⏔⏔
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -79,6 +79,120 @@ nextButton.addEventListener('click', () => {
   }
 });
 
+/* ⏔⏔⏔ months container ⏔⏔⏔
+  generates months html */
+const monthsContainer = document.getElementById('months-container');
+
+let monthsHTML = '';
+
+months.forEach((month, index) => {
+  monthsHTML += `
+    <button class="month-name month-name-${index} months-years-button" data-month="${index}">${month}</button>
+  `;
+});
+
+monthsContainer.innerHTML = monthsHTML;
+
+// ⏔⏔⏔ years container ⏔⏔⏔
+// generate years, 2000 - 2026 + 50
+const yearsContainer = document.getElementById('years-container');
+
+let yearsHTML = '';
+
+for (let i = 2000; i <= currentYear + 50; i++) {
+  yearsHTML += `
+    <button class="year year-${i} months-years-button" data-year="${i}">${i}</button>
+  `;
+}
+
+yearsContainer.innerHTML = yearsHTML;
+
+/* ⏔⏔⏔ display days ⏔⏔⏔
+  ಄ get the first day to identify the weekday
+  ಄ get the last day to identify how many days in a month
+  ಄ store day selected and weekday of month
+  
+*/
+function displayDays() {
+  const firstWeekday = (new Date(year + '-' + (month + 1) + "-01")).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  let daySelected = '';
+  let daysHTML = '';
+
+  // previous days
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+  let prevDaysNeeded = 0;
+
+  for (let i = 0; i <= firstWeekday; i++) {
+    if (i !== firstWeekday) {
+      prevDaysNeeded++;
+    }
+  }
+
+  for (let i = daysInPrevMonth - (prevDaysNeeded - 1); i <= daysInPrevMonth; i++) {
+    daySelected = i + ' ' + months[month - 1] + ' ' + year;
+    daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+  }
+
+  // current days
+  for (let i = 1; i <= daysInMonth; i++) {
+    daySelected = i + ' ' + months[month] + ' ' + year;
+    daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+  }
+
+  // next days
+  for (let i = 1; i < 42 - daysInMonth; i++) {
+    daySelected = i + ' ' + months[month - 1] + ' ' + year;
+    daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+  }
+
+  console.log(daysInPrevMonth - (prevDaysNeeded - 1));
+
+  document.querySelector('.days')
+    .innerHTML = daysHTML;
+
+  // for every element with 'day' class
+  // make day clickable  for note entries
+  document.querySelectorAll(('.day'))
+  .forEach((day) => {
+    day.addEventListener('click', () => {
+      const dayDate = day.dataset.date;
+      id = dayDate;
+
+      // show note panel
+      // console.log(dayDate);
+      notePanel.classList.remove('hidden');
+
+      // display date
+      const dateSelected = document.getElementById('date-selected');
+      dateSelected.innerHTML = dayDate;
+
+      // display note and mood
+      let matchingItem = '';
+
+      notes.forEach((note) => {
+        if (note.id === dayDate) {
+          matchingItem = note;
+        }
+      });
+
+      document.querySelectorAll('.mood')
+        .forEach((moodButton) => {
+          moodButton.classList.remove('mood-selected');
+        });
+
+      if (matchingItem) {
+        noteInput.value = matchingItem.input;
+
+        document.querySelector(`.mood-${matchingItem.mood}`)
+          .classList.add('mood-selected');
+      } else {
+        noteInput.value = '';
+      }
+    });
+  });
+};
 /* 
   ⏔⏔⏔ month and year panel ⏔⏔⏔
   when the month-year label is clicked, 
@@ -142,165 +256,24 @@ function selectMonthYear(monthValue, yearValue) {
       });
     });
 
-  // automatically selects the current month and year
-  // store the month index of the month that matched the monthValue parameter
-
-  // modify the element and add the 'selected' class
   document.querySelector(`.month-name-${monthValue}`)
     .classList.add('selected');
 
   document.querySelector(`.year-${year}`)
     .classList.add('selected');
-
-  let selectedMonth = monthValue;
-  let selectedYear = yearValue;
-
-  // ⏔⏔⏔ close button - hide month year panel ⏔⏔⏔
-  const closeMonthYearButton = document.getElementById('close-month-year-panel');
-
-  closeMonthYearButton.addEventListener('click', () => {
-    monthYearPanel.classList.add('hidden');
-
-    // console.log(selectedMonth + ' ' + selectedYear);
-
-    month = selectedMonth;
-    year = selectedYear;
-
-    displayMonthYear(selectedMonth, selectedYear);
-  });
 }
 
-// ⏔⏔⏔ months container ⏔⏔⏔
-// generates months html
-const monthsContainer = document.getElementById('months-container');
+// ⏔⏔⏔ close button - hide month year panel ⏔⏔⏔
+const closeMonthYearButton = document.getElementById('close-month-year-panel');
 
-let monthsHTML = '';
+closeMonthYearButton.addEventListener('click', () => {
+  monthYearPanel.classList.add('hidden');
 
-months.forEach((month, index) => {
-  monthsHTML += `
-    <button class="month-name month-name-${index} months-years-button" data-month="${index}">${month}</button>
-  `;
+  month = selectedMonth;
+  year = selectedYear;
+
+  displayMonthYear(selectedMonth, selectedYear);
 });
-
-monthsContainer.innerHTML = monthsHTML;
-
-// ⏔⏔⏔ years container ⏔⏔⏔
-// generate years, 2000 - 2026 + 50
-const yearsContainer = document.getElementById('years-container');
-
-let yearsHTML = '';
-
-for (let i = 2000; i <= currentYear + 50; i++) {
-  yearsHTML += `
-    <button class="year year-${i} months-years-button" data-year="${i}">${i}</button>
-  `;
-}
-
-yearsContainer.innerHTML = yearsHTML;
-
-
-
-// ⏔⏔⏔ display days ⏔⏔⏔
-function displayDays() {
-  // get the first day to identify the weekday
-  const firstDay = new Date(year + '-' + (month + 1) + "-01");
-
-  // console.log(year + '-' + (month + 1) + "-01");
-
-  // get the last day to identify days count in a month
-  const lastDay = new Date(year, month + 1, 0).getDate();
-
-  // store day selected and weekday of month
-  let daySelected = '';
-  let weekdayOfMonth = '';
-
-  // get weekday
-  if (firstDay.getDay() - 1 < 0) {
-    weekdayOfMonth = weekdays[6];
-  } else {
-    weekdayOfMonth = weekdays[firstDay.getDay() - 1];
-  }
-
-  let daysHTML = '';
-
-  // generate days
-  weekdays.forEach((weekday) => {
-    if (weekday === weekdayOfMonth) {
-      for (let i = 1; i <= lastDay; i++) {
-        let dayNumber = i;
-        let monthNumber = month + 1;
-
-        if (i < 10) {
-          dayNumber = '0' + i;
-        }
-
-        if (monthNumber < 10) {
-          monthNumber = '0' + monthNumber;
-        }
-
-        daySelected = monthNumber + '/' + dayNumber + '/' + year;
-
-        // put special class for today's date
-        if (i === day && month === date.getMonth() && year === date.getFullYear()) {
-          daysHTML += `
-          <div class="day current-day" data-date="${daySelected}">${i}</div>
-        `;
-        } else {
-          daysHTML += `
-          <div class="day" data-date="${daySelected}">${i}</div>
-        `;
-        }
-      }
-    } else {
-      // leave blank if first day doesn't have *this* weekday
-      daysHTML += `<div class="empty"></div>`;
-    }
-  });
-
-  document.querySelector('.days')
-    .innerHTML = daysHTML;
-
-  // for every element with 'day' class
-  // make day clickable  for note entries
-  document.querySelectorAll(('.day'))
-  .forEach((day) => {
-    day.addEventListener('click', () => {
-      const dayDate = day.dataset.date;
-      id = dayDate;
-
-      // show note panel
-      // console.log(dayDate);
-      notePanel.classList.remove('hidden');
-
-      // display date
-      const dateSelected = document.getElementById('date-selected');
-      dateSelected.innerHTML = dayDate;
-
-      // display note and mood
-      let matchingItem = '';
-
-      notes.forEach((note) => {
-        if (note.id === dayDate) {
-          matchingItem = note;
-        }
-      });
-
-      document.querySelectorAll('.mood')
-        .forEach((moodButton) => {
-          moodButton.classList.remove('mood-selected');
-        });
-
-      if (matchingItem) {
-        noteInput.value = matchingItem.input;
-
-        document.querySelector(`.mood-${matchingItem.mood}`)
-          .classList.add('mood-selected');
-      } else {
-        noteInput.value = '';
-      }
-    });
-  });
-};
 
 // ⏔⏔⏔ note panel ⏔⏔⏔
 const notePanel = document.getElementById('note-panel');
