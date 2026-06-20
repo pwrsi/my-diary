@@ -131,29 +131,44 @@ function displayDays() {
   }
 
   for (let i = daysInPrevMonth - (prevDaysNeeded - 1); i <= daysInPrevMonth; i++) {
-    daySelected = i + ' ' + months[month - 1] + ' ' + year;
-    daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+    let dayFormat = i;
+
+    if (i < 10) {
+      dayFormat = '0' + i;
+    }
+
+    daySelected = dayFormat + ' ' + months[month - 1] + ' ' + year;
+    daysHTML += `<div class="day prev-day" data-date="${daySelected}">${i}</div>`;
   }
 
   // current days
   for (let i = 1; i <= daysInMonth; i++) {
-    daySelected = i + ' ' + months[month] + ' ' + year;
+    let dayFormat = i;
+
+    if (i < 10) {
+      dayFormat = '0' + i;
+    }
+
+    daySelected = dayFormat + ' ' + months[month] + ' ' + year;
     daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
   }
 
   // next days
-  for (let i = 1; i < 42 - daysInMonth; i++) {
-    daySelected = i + ' ' + months[month - 1] + ' ' + year;
-    daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+  for (let i = 1; i <= 42 - (prevDaysNeeded + daysInMonth); i++) {
+    let dayFormat = i;
+
+    if (i < 10) {
+      dayFormat = '0' + i;
+    }
+
+    daySelected = dayFormat + ' ' + months[month + 1] + ' ' + year;
+    daysHTML += `<div class="day next-day" data-date="${daySelected}">${i}</div>`;
   }
 
-  console.log(daysInPrevMonth - (prevDaysNeeded - 1));
 
   document.querySelector('.days')
     .innerHTML = daysHTML;
 
-  // for every element with 'day' class
-  // make day clickable  for note entries
   document.querySelectorAll(('.day'))
   .forEach((day) => {
     day.addEventListener('click', () => {
@@ -161,7 +176,6 @@ function displayDays() {
       id = dayDate;
 
       // show note panel
-      // console.log(dayDate);
       notePanel.classList.remove('hidden');
 
       // display date
@@ -193,6 +207,7 @@ function displayDays() {
     });
   });
 };
+
 /* 
   ⏔⏔⏔ month and year panel ⏔⏔⏔
   when the month-year label is clicked, 
