@@ -124,21 +124,9 @@ function displayDays() {
   const daysInPrevMonth = new Date(year, month, 0).getDate();
   let prevDaysNeeded = 0;
 
-  for (let i = 0; i <= firstWeekday; i++) {
-    if (i !== firstWeekday) {
-      prevDaysNeeded++;
-    }
-  }
-
-  for (let i = daysInPrevMonth - (prevDaysNeeded - 1); i <= daysInPrevMonth; i++) {
-    let dayFormat = i;
-
-    if (i < 10) {
-      dayFormat = '0' + i;
-    }
-
-    daySelected = dayFormat + ' ' + months[month - 1] + ' ' + year;
-    daysHTML += `<div class="day prev-day" data-date="${daySelected}">${i}</div>`;
+  for (let i = firstWeekday; i > 0; i--) {
+    daysHTML += `<div class="prev-day">${daysInPrevMonth - (i - 1)}</div>`;
+    prevDaysNeeded++;
   }
 
   // current days
@@ -155,14 +143,7 @@ function displayDays() {
 
   // next days
   for (let i = 1; i <= 42 - (prevDaysNeeded + daysInMonth); i++) {
-    let dayFormat = i;
-
-    if (i < 10) {
-      dayFormat = '0' + i;
-    }
-
-    daySelected = dayFormat + ' ' + months[month + 1] + ' ' + year;
-    daysHTML += `<div class="day next-day" data-date="${daySelected}">${i}</div>`;
+    daysHTML += `<div class="next-day" data-date="${daySelected}">${i}</div>`;
   }
 
 
