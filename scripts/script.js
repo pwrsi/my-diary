@@ -12,8 +12,8 @@ let moodInput = '';
 const monthLabel = document.getElementById('month');
 const yearLabel = document.getElementById('year');
 
-let selectedMonth = 0;
-let selectedYear = 0;
+let selectedMonth = month;
+let selectedYear = year;
 
 // ⏔⏔⏔ arrays ⏔⏔⏔
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -143,7 +143,7 @@ function displayDays() {
 
   // next days
   for (let i = 1; i <= 42 - (prevDaysNeeded + daysInMonth); i++) {
-    daysHTML += `<div class="next-day" data-date="${daySelected}">${i}</div>`;
+    daysHTML += `<div class="next-day">${i}</div>`;
   }
 
 
@@ -212,8 +212,8 @@ monthYearLabel.addEventListener('click', () => {
   ಄ add the selected class for the latest month/year clicked by getting the element that has the ID
   ಄ set selectedMonth value to monthId (this will be used to display the month and year after selection)
 */
-function selectMonthYear(monthValue, yearValue) {
-  document.querySelectorAll('.month-name')
+
+document.querySelectorAll('.month-name')
     .forEach((monthButton) => {
       monthButton.classList.remove('selected');
 
@@ -233,29 +233,38 @@ function selectMonthYear(monthValue, yearValue) {
       });
     });
 
-  document.querySelectorAll('.year')
-    .forEach((yearButton) => {
-      yearButton.classList.remove('selected');
+document.querySelectorAll('.year')
+  .forEach((yearButton) => {
+    yearButton.classList.remove('selected');
 
-      yearButton.addEventListener('click', () => {
-        const yearId = Number(yearButton.dataset.year);
+    yearButton.addEventListener('click', () => {
+      const yearId = Number(yearButton.dataset.year);
 
-        document.querySelectorAll('.year')
-          .forEach((yearButton) => {
-            yearButton.classList.remove('selected');
+      document.querySelectorAll('.year')
+        .forEach((yearButton) => {
+          yearButton.classList.remove('selected');
+        });
+
+      document.querySelector(`.year-${yearId}`)
+        .classList.add('selected');
+
+      selectedYear = yearId;
+    });
+  });
+
+function selectMonthYear(monthValue, yearValue) {
+  document.querySelectorAll('.month-name')
+          .forEach((monthButton) => {
+            monthButton.classList.remove('selected');
           });
 
-        document.querySelector(`.year-${yearId}`)
-          .classList.add('selected');
-
-        selectedYear = yearId;
-      });
-    });
+  selectedMonth = monthValue;
+  selectedYear = yearValue;
 
   document.querySelector(`.month-name-${monthValue}`)
     .classList.add('selected');
 
-  document.querySelector(`.year-${year}`)
+  document.querySelector(`.year-${yearValue}`)
     .classList.add('selected');
 }
 
