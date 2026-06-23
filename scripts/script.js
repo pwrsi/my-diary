@@ -5,6 +5,8 @@ let month = date.getMonth();
 const currentYear = date.getFullYear();
 let year = currentYear;
 
+console.log(date);
+
 const noteInput = document.getElementById('note');
 let id = '';
 let moodInput = '';
@@ -113,6 +115,7 @@ yearsContainer.innerHTML = yearsHTML;
   ಄ store day selected and weekday of month
   
 */
+
 function displayDays() {
   const firstWeekday = (new Date(year + '-' + (month + 1) + "-01")).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -138,7 +141,14 @@ function displayDays() {
     }
 
     daySelected = dayFormat + ' ' + months[month] + ' ' + year;
-    daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+
+    if (i === date.getDate() && month === date.getMonth() && year === date.getFullYear()) {
+      daysHTML += `<div class="day current-day" data-date="${daySelected}">${i}</div>`;
+    } else {
+      daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+    }
+
+    
   }
 
   // next days
@@ -254,9 +264,14 @@ document.querySelectorAll('.year')
 
 function selectMonthYear(monthValue, yearValue) {
   document.querySelectorAll('.month-name')
-          .forEach((monthButton) => {
-            monthButton.classList.remove('selected');
-          });
+    .forEach((monthButton) => {
+      monthButton.classList.remove('selected');
+    });
+
+  document.querySelectorAll('.year')
+    .forEach((yearButton) => {
+      yearButton.classList.remove('selected');
+    });
 
   selectedMonth = monthValue;
   selectedYear = yearValue;
