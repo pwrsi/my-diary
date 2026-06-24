@@ -135,6 +135,7 @@ function displayDays() {
   // current days
   for (let i = 1; i <= daysInMonth; i++) {
     let dayFormat = i;
+    let mood = '';
 
     if (i < 10) {
       dayFormat = '0' + i;
@@ -142,10 +143,31 @@ function displayDays() {
 
     daySelected = dayFormat + ' ' + months[month] + ' ' + year;
 
+    notes.forEach((note) => {
+      if (note.id === daySelected) {
+        mood = note.mood;
+      }
+    });
+    console.log(mood);
+
     if (i === date.getDate() && month === date.getMonth() && year === date.getFullYear()) {
-      daysHTML += `<div class="day current-day" data-date="${daySelected}">${i}</div>`;
+      daysHTML += `
+        <div class="day current-day" data-date="${daySelected}">
+          <p>${i}</p>
+          <div>
+            ${mood ? `<img class="day-mood" src="../images/moods/${mood}.png">` : ''}
+          </div>
+        </div>
+      `;
     } else {
-      daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
+      daysHTML += `
+        <div class="day" data-date="${daySelected}">
+          <p>${i}</p>
+          <div>
+            ${mood ? `<img class="day-mood" src="../images/moods/${mood}.png">` : ''}
+          </div>
+        </div>
+      `;
     }
 
     
@@ -345,6 +367,7 @@ saveButton.addEventListener('click', () => {
   }
   
   localStorage.setItem('notes', JSON.stringify(notes));
+  displayDays();
   console.log(notes);
 });
 

@@ -151,9 +151,14 @@ body {
   color: #ffffff;
 }
 
+.current-day p {
+  color: #fff;
+}
+
 .day:hover {
   background-color: #c1e58471;
   border-radius: 36px;
+  color: #fd88a9;
 }
 
 .day:active { 
@@ -400,4 +405,10 @@ body {
 /* hidden */
 .hidden {
   display: none;
+}
+
+.day-mood {
+  width: 18px;
+  position: absolute;
+  transform: translate(8px, -12px);
 }
