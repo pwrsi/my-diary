@@ -9,7 +9,6 @@ console.log(date);
 
 const noteInput = document.getElementById('note');
 let id = '';
-let moodInput = '';
 
 const monthLabel = document.getElementById('month');
 const yearLabel = document.getElementById('year');
@@ -135,7 +134,6 @@ function displayDays() {
   // current days
   for (let i = 1; i <= daysInMonth; i++) {
     let dayFormat = i;
-    let mood = '';
 
     if (i < 10) {
       dayFormat = '0' + i;
@@ -143,31 +141,10 @@ function displayDays() {
 
     daySelected = dayFormat + ' ' + months[month] + ' ' + year;
 
-    notes.forEach((note) => {
-      if (note.id === daySelected) {
-        mood = note.mood;
-      }
-    });
-    console.log(mood);
-
     if (i === date.getDate() && month === date.getMonth() && year === date.getFullYear()) {
-      daysHTML += `
-        <div class="day current-day" data-date="${daySelected}">
-          <p>${i}</p>
-          <div>
-            ${mood ? `<img class="day-mood" src="../images/moods/${mood}.png">` : ''}
-          </div>
-        </div>
-      `;
+      daysHTML += `<div class="day current-day" data-date="${daySelected}">${i}</div>`;
     } else {
-      daysHTML += `
-        <div class="day" data-date="${daySelected}">
-          <p>${i}</p>
-          <div>
-            ${mood ? `<img class="day-mood" src="../images/moods/${mood}.png">` : ''}
-          </div>
-        </div>
-      `;
+      daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
     }
 
     
@@ -195,7 +172,7 @@ function displayDays() {
       const dateSelected = document.getElementById('date-selected');
       dateSelected.innerHTML = dayDate;
 
-      // display note and mood
+      // display note
       let matchingItem = '';
 
       notes.forEach((note) => {
@@ -204,16 +181,9 @@ function displayDays() {
         }
       });
 
-      document.querySelectorAll('.mood')
-        .forEach((moodButton) => {
-          moodButton.classList.remove('mood-selected');
-        });
-
       if (matchingItem) {
         noteInput.value = matchingItem.input;
 
-        document.querySelector(`.mood-${matchingItem.mood}`)
-          .classList.add('mood-selected');
       } else {
         noteInput.value = '';
       }
@@ -344,10 +314,7 @@ saveButton.addEventListener('click', () => {
   console.log(matchingItem);
 
   if (matchingItem) {
-    matchingItem['input'] = noteInput.value;
-    matchingItem['mood'] = moodInput;
-
-    if (!noteInput.value && !moodInput) {
+    if (!noteInput.value) {
       notes.forEach((note, i) => {
         if (note === matchingItem) {
           notes.splice(i, 1);
@@ -357,60 +324,17 @@ saveButton.addEventListener('click', () => {
       });
     }
 
-  } else if (!matchingItem && noteInput.value || moodInput) {
+  } else if (!matchingItem && noteInput.value) {
     notes.push({
       id: id,
       input: noteInput.value,
-      mood: moodInput
     });
 
   }
   
   localStorage.setItem('notes', JSON.stringify(notes));
-  displayDays();
   console.log(notes);
 });
-
-// moods panel
-const moodsButton = document.getElementById('moods-button');
-const moodsPanel = document.getElementById('moods-panel')
-const closeMoodsButton = document.getElementById('close-moods-panel');
-
-moodsButton.addEventListener('click', () => {
-  moodsPanel.classList.remove('hidden');
-});
-
-closeMoodsButton.addEventListener('click', () => {
-  moodsPanel.classList.add('hidden');
-});
-
-document.querySelectorAll('.mood')
-  .forEach((moodButton) => {
-    moodInput = '';
-
-    document.querySelectorAll('.mood')
-    .forEach((moodButton) => {
-      moodButton.classList.remove('mood-selected');
-    });
-
-    moodButton.addEventListener('click', () => {
-      document.querySelectorAll('.mood')
-        .forEach((moodButton) => {
-          moodButton.classList.remove('mood-selected');
-        });
-      
-      const moodSelected = moodButton.dataset.mood;
-
-      if (moodInput === moodSelected) {
-        document.querySelector(`.mood-${moodInput}`)
-          .classList.remove('mood-selected');
-          moodInput = '';
-      } else {
-        moodInput = moodSelected;
-        moodButton.classList.add('mood-selected');
-      }
-    });
-  });
 
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
 displayMonthYear(month, year);

@@ -407,8 +407,3 @@ body {
   display: none;
 }
 
-.day-mood {
-  width: 18px;
-  position: absolute;
-  transform: translate(8px, -12px);
-}
