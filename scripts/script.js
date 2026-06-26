@@ -336,5 +336,26 @@ saveButton.addEventListener('click', () => {
   console.log(notes);
 });
 
+// ⏔⏔⏔ draggable stickers panel ⏔⏔⏔
+const stickersPanel = document.getElementById('stickers-panel');
+const stickersButton = document.getElementById('stickers-button');
+const closeStickersButton = document.getElementById('close-stickers-panel');
+const stickerHeader = document.getElementById('stickers-header');
+
+
+stickersButton.addEventListener('click', () => {
+  stickersPanel.classList.remove('hidden');
+});
+
+closeStickersButton.addEventListener('click', () => {
+  stickersPanel.classList.add('hidden');
+});
+
+stickerHeader.addEventListener('mousedown', () => {
+  console.log('started dragging');
+});
+
+
+
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
 displayMonthYear(month, year);
