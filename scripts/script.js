@@ -340,7 +340,7 @@ saveButton.addEventListener('click', () => {
 const stickersPanel = document.getElementById('stickers-panel');
 const stickersButton = document.getElementById('stickers-button');
 const closeStickersButton = document.getElementById('close-stickers-panel');
-const stickerHeader = document.getElementById('stickers-header');
+const stickersHeader = document.getElementById('stickers-header');
 
 
 stickersButton.addEventListener('click', () => {
@@ -351,9 +351,30 @@ closeStickersButton.addEventListener('click', () => {
   stickersPanel.classList.add('hidden');
 });
 
-stickerHeader.addEventListener('mousedown', () => {
-  console.log('started dragging');
+stickersHeader.addEventListener('mousedown', (event) => {
+  let left = stickersPanel.offsetLeft;
+  let top = stickersPanel.offsetTop;
+
+  let startX = event.pageX;
+  let startY = event.pageY;
+
+  const drag = (event) => {
+    event.preventDefault();
+    
+    stickersPanel.style.left = left + (event.pageX - startX) + 'px';
+    stickersPanel.style.top = top + (event.pageY - startY) + 'px';
+  };
+
+  const mouseup = (event) => {
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', mouseup);
+  }
+
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', mouseup);
 });
+
+
 
 
 
