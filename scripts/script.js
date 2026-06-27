@@ -293,6 +293,8 @@ const closeNoteButton = document.getElementById('close-note-panel');
 
 closeNoteButton.addEventListener('click', () => {
   notePanel.classList.add('hidden');
+
+  stickersPanel.classList.add('hidden');
 });
 
 // ⏔⏔⏔ save button ⏔⏔⏔
@@ -360,7 +362,7 @@ stickersHeader.addEventListener('mousedown', (event) => {
 
   const drag = (event) => {
     event.preventDefault();
-    
+
     stickersPanel.style.left = left + (event.pageX - startX) + 'px';
     stickersPanel.style.top = top + (event.pageY - startY) + 'px';
   };
