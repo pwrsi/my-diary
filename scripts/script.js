@@ -7,7 +7,7 @@ let year = currentYear;
 
 console.log(date);
 
-const noteInput = document.getElementById('note');
+const noteInput = document.getElementById('note-area');
 let id = '';
 
 const monthLabel = document.getElementById('month');
@@ -182,10 +182,10 @@ function displayDays() {
       });
 
       if (matchingItem) {
-        noteInput.value = matchingItem.input;
+        noteInput.innerText = matchingItem.input;
 
       } else {
-        noteInput.value = '';
+        noteInput.innerText = '';
       }
     });
   });
@@ -316,7 +316,7 @@ saveButton.addEventListener('click', () => {
   console.log(matchingItem);
 
   if (matchingItem) {
-    if (!noteInput.value) {
+    if (!noteInput.innerText) {
       notes.forEach((note, i) => {
         if (note === matchingItem) {
           notes.splice(i, 1);
@@ -326,11 +326,13 @@ saveButton.addEventListener('click', () => {
       });
     }
 
-  } else if (!matchingItem && noteInput.value) {
+  } else if (!matchingItem && noteInput.innerText) {
     notes.push({
       id: id,
-      input: noteInput.value,
+      input: noteInput.innerText,
     });
+
+    
 
   }
   
@@ -359,6 +361,7 @@ stickersHeader.addEventListener('mousedown', (event) => {
 
   let startX = event.pageX;
   let startY = event.pageY;
+  console.log("starting mouse click position -> left: " + left + " startX: " + startX);
 
   const drag = (event) => {
     event.preventDefault();
@@ -376,8 +379,52 @@ stickersHeader.addEventListener('mousedown', (event) => {
   document.addEventListener('mouseup', mouseup);
 });
 
+// stickers
+document.querySelectorAll('.sticker-image')
+  .forEach((stickerButton) => {
+    stickerButton.addEventListener('click', () => {
+      const stickerArea = document.getElementById('stickers-area');
+      const stickerId = stickerButton.dataset.stickerId;
 
+      const sticker = document.createElement('img');
+      sticker.src = `../images/stickers/${stickerId}-sticker.png`;
+      sticker.classList.add('sticker-image');
+      stickerArea.appendChild(sticker);
+      sticker.draggable = false;
 
+      sticker.addEventListener("dragstart", (event) => {
+          event.preventDefault();
+      });
+
+      sticker.addEventListener('mousedown', (event) => {
+        let left = sticker.offsetLeft;
+        let top = sticker.offsetTop;
+      
+        let startX = event.pageX;
+        let startY = event.pageY;
+      
+        const drag = (event) => {
+          event.preventDefault();
+      
+          sticker.style.left = left + (event.pageX - startX) + 'px';
+          sticker.style.top = top + (event.pageY - startY) + 'px';
+        };
+      
+        const mouseup = () => {
+          document.removeEventListener("mousemove", drag);
+          document.removeEventListener("mouseup", mouseup);
+        };
+      
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', mouseup);
+      });
+    });
+  });
+
+// note area
+noteInput.addEventListener('dragover', (event) => {
+  event.preventDefault();
+});
 
 
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
