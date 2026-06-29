@@ -112,9 +112,7 @@ yearsContainer.innerHTML = yearsHTML;
   ಄ get the first day to identify the weekday
   ಄ get the last day to identify how many days in a month
   ಄ store day selected and weekday of month
-  
 */
-
 function displayDays() {
   const firstWeekday = (new Date(year + '-' + (month + 1) + "-01")).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -146,15 +144,12 @@ function displayDays() {
     } else {
       daysHTML += `<div class="day" data-date="${daySelected}">${i}</div>`;
     }
-
-    
   }
 
   // next days
   for (let i = 1; i <= 42 - (prevDaysNeeded + daysInMonth); i++) {
     daysHTML += `<div class="next-day">${i}</div>`;
   }
-
 
   document.querySelector('.days')
     .innerHTML = daysHTML;
@@ -187,6 +182,9 @@ function displayDays() {
       } else {
         noteInput.innerText = '';
       }
+
+      // load character count
+      loadCharCount();
     });
   });
 };
@@ -346,7 +344,6 @@ const stickersButton = document.getElementById('stickers-button');
 const closeStickersButton = document.getElementById('close-stickers-panel');
 const stickersHeader = document.getElementById('stickers-header');
 
-
 stickersButton.addEventListener('click', () => {
   stickersPanel.classList.remove('hidden');
 });
@@ -386,46 +383,93 @@ document.querySelectorAll('.sticker-image')
       const stickerArea = document.getElementById('stickers-area');
       const stickerId = stickerButton.dataset.stickerId;
 
+      // create new element for sticker
       const sticker = document.createElement('img');
       sticker.src = `../images/stickers/${stickerId}-sticker.png`;
       sticker.classList.add('sticker-image');
       stickerArea.appendChild(sticker);
+
+      // disable browser dragging
       sticker.draggable = false;
 
-      sticker.addEventListener("dragstart", (event) => {
-          event.preventDefault();
-      });
-
+      // make the sticker draggable
       sticker.addEventListener('mousedown', (event) => {
+        // save current sticker position
         let left = sticker.offsetLeft;
         let top = sticker.offsetTop;
       
+        // save mouse position
         let startX = event.pageX;
         let startY = event.pageY;
       
+        // function for dragging
         const drag = (event) => {
           event.preventDefault();
       
+          // calculate new position
           sticker.style.left = left + (event.pageX - startX) + 'px';
           sticker.style.top = top + (event.pageY - startY) + 'px';
         };
       
+        // function for releasing sticker being dragged
         const mouseup = () => {
           document.removeEventListener("mousemove", drag);
           document.removeEventListener("mouseup", mouseup);
         };
       
+        // detect document for the following events
+        // mouse movement -> drag
+        // mouse release -> mousep
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', mouseup);
       });
     });
   });
 
-// note area
+// note area | prevent default behavior for the event
 noteInput.addEventListener('dragover', (event) => {
   event.preventDefault();
 });
 
+noteInput.addEventListener('paste', (event) => {
+  event.preventDefault();
+
+  const text = event.clipboardData.getData('text/plain');
+  document.execCommand('insertText', false, text);
+});
+
+// character counter
+noteInput.addEventListener('input', (event) => {
+  event.preventDefault();
+
+  const maxChar = 1500;
+  let noteLength = noteInput.textContent.length;
+
+  displayCharCount(noteLength);
+})
+
+function loadCharCount() {
+  let matchingItem;
+
+  notes.forEach((note) => {
+    if (note.id === id) {
+      matchingItem = note;
+    }
+  });
+
+  let charCount = 0;
+
+  if (matchingItem && matchingItem.characters) {
+    charCount = matchingItem.characters;
+  }
+
+  displayCharCount(charCount);
+}
+
+function displayCharCount(charCount) {
+  const charCountDisplay = document.getElementById('char');
+  charCountDisplay.innerHTML = charCount;
+}
 
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
 displayMonthYear(month, year);

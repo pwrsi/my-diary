@@ -453,6 +453,19 @@ body {
   transform: scale(0.95);
 }
 
+/* character counter */
+p.char-counter {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 1;
+  font-size: 0.9rem;
+}
+
+p.char-counter span {
+  font-size: 0.9rem;
+}
+
 /* hidden */
 .hidden {
   display: none;
