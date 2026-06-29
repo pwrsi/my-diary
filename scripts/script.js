@@ -314,6 +314,9 @@ saveButton.addEventListener('click', () => {
   console.log(matchingItem);
 
   if (matchingItem) {
+    matchingItem['input'] = noteInput.innerText;
+    matchingItem['characters'] = noteInput.innerText.length;
+
     if (!noteInput.innerText) {
       notes.forEach((note, i) => {
         if (note === matchingItem) {
@@ -328,10 +331,8 @@ saveButton.addEventListener('click', () => {
     notes.push({
       id: id,
       input: noteInput.innerText,
+      characters: noteInput.innerText.length
     });
-
-    
-
   }
   
   localStorage.setItem('notes', JSON.stringify(notes));
