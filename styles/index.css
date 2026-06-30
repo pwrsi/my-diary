@@ -328,11 +328,18 @@ body {
 .note .note-area {
   border: none;
   width: 100%;
+  height: 100%;
   padding: 10px;
   resize: none;
   outline: none;
   font-size: 1.2rem;
   position: absolute;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+  scrollbar-color: #ff92b1 #ffffff;
+  scrollbar-width: thin;
 }
 
 /* general */
