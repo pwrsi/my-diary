@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <p class="char-counter"><span class="char" id="char">0</span>/1500</p>
+        <p class="char-counter" id="char-counter"><span class="char" id="char">0</span>/1500</p>
       </div>
 
       <div class="note">
@@ -130,6 +130,19 @@
       </div>
 
       <button class="clear-button">Clear</button>
+    </div>
+  </div>
+
+  <!-- max limit character -->
+  <div class="warning-popup hidden" id="max-chars-reached-warning">
+    <div class="inner-content">
+      <div class="header">
+        <button class="close-button" id="close-warning">x</button>
+      </div>
+  
+      <div class="message-container">
+        <p>Maximum characters reached. Entry cannot be saved.</p>
+      </div>
     </div>
   </div>
 

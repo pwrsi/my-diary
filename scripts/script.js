@@ -9,6 +9,8 @@ console.log(date);
 
 const noteInput = document.getElementById('note-area');
 let id = '';
+const maxChar = 1500;
+const warningPopup = document.getElementById('max-chars-reached-warning');
 
 const monthLabel = document.getElementById('month');
 const yearLabel = document.getElementById('year');
@@ -299,7 +301,6 @@ closeNoteButton.addEventListener('click', () => {
 const saveButton = document.getElementById('save-button');
 
 saveButton.addEventListener('click', () => {
-  
   let matchingItem = "";
 
   // see if the note entry for that day already exists
@@ -313,26 +314,31 @@ saveButton.addEventListener('click', () => {
 
   console.log(matchingItem);
 
-  if (matchingItem) {
-    matchingItem['input'] = noteInput.innerText;
-    matchingItem['characters'] = noteInput.innerText.length;
-
-    if (!noteInput.innerText) {
-      notes.forEach((note, i) => {
-        if (note === matchingItem) {
-          notes.splice(i, 1);
-        }
-
-        console.log('removed');
+  if (noteInput.textContent.length <= maxChar) {
+    if (matchingItem) {
+      matchingItem['input'] = noteInput.innerText;
+      matchingItem['characters'] = noteInput.innerText.length;
+  
+      if (!noteInput.innerText) {
+        notes.forEach((note, i) => {
+          if (note === matchingItem) {
+            notes.splice(i, 1);
+          }
+  
+          console.log('removed');
+        });
+      }
+    } else if (!matchingItem && noteInput.innerText) {
+      notes.push({
+        id: id,
+        input: noteInput.innerText,
+        characters: noteInput.innerText.length
       });
     }
 
-  } else if (!matchingItem && noteInput.innerText) {
-    notes.push({
-      id: id,
-      input: noteInput.innerText,
-      characters: noteInput.innerText.length
-    });
+    warningPopup.classList.add('hidden');
+  } else {
+    warningPopup.classList.remove('hidden');
   }
   
   localStorage.setItem('notes', JSON.stringify(notes));
@@ -418,9 +424,9 @@ document.querySelectorAll('.sticker-image')
           document.removeEventListener("mouseup", mouseup);
         };
       
-        // detect document for the following events
-        // mouse movement -> drag
-        // mouse release -> mousep
+        /* detect document for the following events
+           mouse movement -> drag
+           mouse release -> mouseup */
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', mouseup);
       });
@@ -441,6 +447,14 @@ noteInput.addEventListener('paste', (event) => {
 
 noteInput.addEventListener('input', (event) => {
   let noteLength = noteInput.textContent.length;
+
+  if (noteLength > maxChar) {
+    document.getElementById('char')
+      .classList.add('max-limit-warning');
+  } else {
+    document.getElementById('char')
+      .classList.remove('max-limit-warning');
+  }
 
   displayCharCount(noteLength);
 })
@@ -467,6 +481,13 @@ function displayCharCount(charCount) {
   const charCountDisplay = document.getElementById('char');
   charCountDisplay.innerHTML = charCount;
 }
+
+// close warning popup
+const closeWarningPopup = document.getElementById('close-warning');
+
+closeWarningPopup.addEventListener('click', () => {
+  warningPopup.classList.add('hidden');
+});
 
 // ⏔⏔⏔ render when the page loads ⏔⏔⏔
 displayMonthYear(month, year);
