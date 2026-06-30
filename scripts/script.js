@@ -439,11 +439,7 @@ noteInput.addEventListener('paste', (event) => {
   document.execCommand('insertText', false, text);
 });
 
-// character counter
 noteInput.addEventListener('input', (event) => {
-  event.preventDefault();
-
-  const maxChar = 1500;
   let noteLength = noteInput.textContent.length;
 
   displayCharCount(noteLength);
