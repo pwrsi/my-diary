@@ -399,6 +399,13 @@ document.querySelectorAll('.sticker-image')
       sticker.classList.add('sticker-image');
       stickerArea.appendChild(sticker);
 
+      // sticker area & sticker
+      const stickerAreaWidth = stickerArea.clientWidth;
+      const stickerAreaHeight = stickerArea.clientHeight;
+
+      const stickerWidth = sticker.offsetWidth;
+      const stickerHeight = sticker.offsetHeight;
+
       // disable browser dragging
       sticker.draggable = false;
 
@@ -415,10 +422,32 @@ document.querySelectorAll('.sticker-image')
         // function for dragging
         const drag = (event) => {
           event.preventDefault();
-      
-          // calculate new position
-          sticker.style.left = left + (event.pageX - startX) + 'px';
-          sticker.style.top = top + (event.pageY - startY) + 'px';
+
+          const boundaryWidth = stickerAreaWidth - stickerWidth;
+          const boundaryHeight = stickerAreaHeight - stickerHeight;
+
+          let newLeft = left + (event.pageX - startX);
+          let newTop = top + (event.pageY - startY);
+
+          if (newLeft < 0) {
+            newLeft = 0;
+          } else if (newLeft > boundaryWidth) {
+            newLeft = boundaryWidth;
+          }
+
+          if (newTop < 0) {
+            newTop = 0;
+          } else if (newTop > boundaryHeight) {
+            newTop = boundaryHeight;
+          }
+
+          if (newLeft < boundaryWidth) {
+            sticker.style.left = newLeft + 'px';
+          }
+
+          if (newTop < boundaryHeight) {
+            sticker.style.top = newTop + 'px';
+          }
         };
       
         // function for releasing sticker being dragged
