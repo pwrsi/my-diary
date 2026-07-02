@@ -186,7 +186,10 @@ function displayDays() {
       }
 
       // load character count
+      document.getElementById('char')
+        .classList.remove('max-limit-warning');
       loadCharCount();
+      
     });
   });
 };

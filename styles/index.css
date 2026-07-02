@@ -169,6 +169,7 @@ body {
 
 .month-year-panel .inner-content {
   background-color: #ffb4c9;
+  border: 3px solid #ffb4c9;
   position: absolute;
   z-index: 100;
   overflow: hidden;
@@ -475,7 +476,7 @@ p.char-counter span {
 }
 
 span.max-limit-warning  {
-  color: red;
+  color: rgb(255, 66, 66);
 }
 
 /* warning */
