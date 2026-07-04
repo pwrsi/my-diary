@@ -5,16 +5,19 @@ let month = date.getMonth();
 const currentYear = date.getFullYear();
 let year = currentYear;
 
-console.log(date);
-
-const noteInput = document.getElementById('note-area');
+// ⏔⏔⏔ id ⏔⏔⏔
 let id = '';
+
+// ⏔⏔⏔ note area ⏔⏔⏔
+const noteInput = document.getElementById('note-area');
 const maxChar = 1500;
 const warningPopup = document.getElementById('max-chars-reached-warning');
 
+// ⏔⏔⏔ month & year label ⏔⏔⏔
 const monthLabel = document.getElementById('month');
 const yearLabel = document.getElementById('year');
 
+// ⏔⏔⏔ selected month & year ⏔⏔⏔
 let selectedMonth = month;
 let selectedYear = year;
 
@@ -22,9 +25,9 @@ let selectedYear = year;
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-// ⏔⏔⏔ display month and year ⏔⏔⏔
+// ⏔⏔⏔ display month & year function ⏔⏔⏔
 function displayMonthYear(monthValue, yearValue) {
-  // Change the innerHTML
+  // change the innerHTML
   monthLabel.innerHTML = months[monthValue];
   yearLabel.innerHTML = yearValue;
 
@@ -179,10 +182,10 @@ function displayDays() {
       });
 
       if (matchingItem) {
-        noteInput.innerText = matchingItem.input;
+        noteInput.innerHTML = matchingItem.input;
 
       } else {
-        noteInput.innerText = '';
+        noteInput.innerHTML = '';
       }
 
       // load character count
@@ -315,11 +318,9 @@ saveButton.addEventListener('click', () => {
     }
   });
 
-  console.log(matchingItem);
-
   if (noteInput.textContent.length <= maxChar) {
     if (matchingItem) {
-      matchingItem['input'] = noteInput.innerText;
+      matchingItem['input'] = noteInput.innerHTML;
       matchingItem['characters'] = noteInput.innerText.length;
   
       if (!noteInput.innerText) {
@@ -334,7 +335,7 @@ saveButton.addEventListener('click', () => {
     } else if (!matchingItem && noteInput.innerText) {
       notes.push({
         id: id,
-        input: noteInput.innerText,
+        input: noteInput.innerHTML,
         characters: noteInput.innerText.length
       });
     }
