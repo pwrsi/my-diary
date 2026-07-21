@@ -299,8 +299,6 @@ const closeNoteButton = document.getElementById('close-note-panel');
 
 closeNoteButton.addEventListener('click', () => {
   notePanel.classList.add('hidden');
-
-  stickersPanel.classList.add('hidden');
 });
 
 // ⏔⏔⏔ save button ⏔⏔⏔
@@ -348,123 +346,6 @@ saveButton.addEventListener('click', () => {
   localStorage.setItem('notes', JSON.stringify(notes));
   console.log(notes);
 });
-
-// ⏔⏔⏔ draggable stickers panel ⏔⏔⏔
-const stickersPanel = document.getElementById('stickers-panel');
-const stickersButton = document.getElementById('stickers-button');
-const closeStickersButton = document.getElementById('close-stickers-panel');
-const stickersHeader = document.getElementById('stickers-header');
-
-stickersButton.addEventListener('click', () => {
-  stickersPanel.classList.remove('hidden');
-});
-
-closeStickersButton.addEventListener('click', () => {
-  stickersPanel.classList.add('hidden');
-});
-
-stickersHeader.addEventListener('mousedown', (event) => {
-  let left = stickersPanel.offsetLeft;
-  let top = stickersPanel.offsetTop;
-
-  let startX = event.pageX;
-  let startY = event.pageY;
-  console.log("starting mouse click position -> left: " + left + " startX: " + startX);
-
-  const drag = (event) => {
-    event.preventDefault();
-
-    stickersPanel.style.left = left + (event.pageX - startX) + 'px';
-    stickersPanel.style.top = top + (event.pageY - startY) + 'px';
-  };
-
-  const mouseup = (event) => {
-    document.removeEventListener('mousemove', drag);
-    document.removeEventListener('mouseup', mouseup);
-  }
-
-  document.addEventListener('mousemove', drag);
-  document.addEventListener('mouseup', mouseup);
-});
-
-// stickers
-document.querySelectorAll('.sticker-image')
-  .forEach((stickerButton) => {
-    stickerButton.addEventListener('click', () => {
-      const stickerArea = document.getElementById('stickers-area');
-      const stickerId = stickerButton.dataset.stickerId;
-
-      // create new element for sticker
-      const sticker = document.createElement('img');
-      sticker.src = `../images/stickers/${stickerId}-sticker.png`;
-      sticker.classList.add('sticker-image');
-      stickerArea.appendChild(sticker);
-
-      // sticker area & sticker
-      const stickerAreaWidth = stickerArea.clientWidth;
-      const stickerAreaHeight = stickerArea.clientHeight;
-
-      const stickerWidth = sticker.offsetWidth;
-      const stickerHeight = sticker.offsetHeight;
-
-      // disable browser dragging
-      sticker.draggable = false;
-
-      // make the sticker draggable
-      sticker.addEventListener('mousedown', (event) => {
-        // save current sticker position
-        let left = sticker.offsetLeft;
-        let top = sticker.offsetTop;
-      
-        // save mouse position
-        let startX = event.pageX;
-        let startY = event.pageY;
-      
-        // function for dragging
-        const drag = (event) => {
-          event.preventDefault();
-
-          const boundaryWidth = stickerAreaWidth - stickerWidth;
-          const boundaryHeight = stickerAreaHeight - stickerHeight;
-
-          let newLeft = left + (event.pageX - startX);
-          let newTop = top + (event.pageY - startY);
-
-          if (newLeft < 0) {
-            newLeft = 0;
-          } else if (newLeft > boundaryWidth) {
-            newLeft = boundaryWidth;
-          }
-
-          if (newTop < 0) {
-            newTop = 0;
-          } else if (newTop > boundaryHeight) {
-            newTop = boundaryHeight;
-          }
-
-          if (newLeft < boundaryWidth) {
-            sticker.style.left = newLeft + 'px';
-          }
-
-          if (newTop < boundaryHeight) {
-            sticker.style.top = newTop + 'px';
-          }
-        };
-      
-        // function for releasing sticker being dragged
-        const mouseup = () => {
-          document.removeEventListener("mousemove", drag);
-          document.removeEventListener("mouseup", mouseup);
-        };
-      
-        /* detect document for the following events
-           mouse movement -> drag
-           mouse release -> mouseup */
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', mouseup);
-      });
-    });
-  });
 
 // note area | prevent default behavior for the event
 noteInput.addEventListener('dragover', (event) => {
